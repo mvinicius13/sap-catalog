@@ -3,10 +3,9 @@ import { useEffect, useState } from 'react';
 import { Copy } from 'lucide-react';
 
 const urls = {
-  i5: 'https://opensheet.elk.sh/1FQRXOr27B1N7PK7NhqQmPi1kaqQqImA-iZYjRecqIw0/Note i5',
-  i7: 'https://opensheet.elk.sh/1FQRXOr27B1N7PK7NhqQmPi1kaqQqImA-iZYjRecqIw0/Note i7',
-  mac: 'https://opensheet.elk.sh/1FQRXOr27B1N7PK7NhqQmPi1kaqQqImA-iZYjRecqIw0/Macbook',
-  desktop: 'https://opensheet.elk.sh/1FQRXOr27B1N7PK7NhqQmPi1kaqQqImA-iZYjRecqIw0/Desktops',
+  i5: 'https://opensheet.elk.sh/1MVGnUOGBmjWKqPt4F0arvsAgJd48jqMWUvt9REhSSus/Note i5',
+  i7: 'https://opensheet.elk.sh/1MVGnUOGBmjWKqPt4F0arvsAgJd48jqMWUvt9REhSSus/Note i7',
+  desktop: 'https://opensheet.elk.sh/1MVGnUOGBmjWKqPt4F0arvsAgJd48jqMWUvt9REhSSus/Desktops',
 };
 
 const filtrosDisponiveis = [
@@ -34,6 +33,10 @@ export default function Catalog({ categoria }) {
     fetch(urls[categoria])
       .then((res) => res.json())
       .then((dados) => {
+        if (!Array.isArray(dados)) {
+          console.error("Erro: dados não é um array", dados);
+          return;
+        }
         const normalizados = dados.map((item) => ({
           'Tem Placa de Vídeo': (item['Placa de Vídeo Modelo'] && item['Placa de Vídeo Modelo'].trim() !== '' && !item['Placa de Vídeo Modelo'].toLowerCase().includes('dedicada')) ? 'Sim' : 'Não',
           ...item,
@@ -117,7 +120,7 @@ export default function Catalog({ categoria }) {
 <>
   <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
     <img
-      src="https://i.imgur.com/ptWo1jP.png"
+      src="https://i.imgur.com/VHmZMBi.png"
       alt="Banner Catálogo"
       className="w-full h-auto object-cover"
     />
@@ -125,7 +128,7 @@ export default function Catalog({ categoria }) {
 
     <>
       <div className="w-full px-4 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white">
-        <img src="/logo.png" alt="Logo LevelMicro" className="h-32 mb-2 sm:mb-0" />
+        <img src="https://i.imgur.com/GxXHjql.jpeg" alt="Logo LevelMicro" className="h-32 mb-2 sm:mb-0" />
         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <input
             type="text"
@@ -282,7 +285,7 @@ export default function Catalog({ categoria }) {
       </footer>
 
       <a
-        href="https://docs.google.com/spreadsheets/d/1FQRXOr27B1N7PK7NhqQmPi1kaqQqImA-iZYjRecqIw0/export?format=xlsx"
+        href="https://docs.google.com/spreadsheets/d/1MVGnUOGBmjWKqPt4F0arvsAgJd48jqMWUvt9REhSSus/export?format=xlsx"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-24 right-5 bg-green-700 hover:bg-green-800 text-white p-3 rounded-full shadow-lg transition"
